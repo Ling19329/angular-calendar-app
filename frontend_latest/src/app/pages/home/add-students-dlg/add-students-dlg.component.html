@@ -1,0 +1,34 @@
+
+<h1 mat-dialog-title>ADD Student</h1>
+<div mat-dialog-content>
+    <mat-form-field class="event-form">
+        <mat-label>ID: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="id" disabled>
+    </mat-form-field>
+    <mat-form-field class="event-form">
+        <mat-label>First Name: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="firstname">
+    </mat-form-field>
+
+    <mat-form-field class="event-form">
+        <mat-label>Last Name: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="lastname">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Birth Date: </mat-label>
+        <input matInput [matDatepicker]="myStartDatepicker" [(ngModel)]="birthdate">
+        <mat-datepicker-toggle matSuffix [for]="myStartDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myStartDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="event-form">
+        <mat-label>Email: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="email">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button class="mx-30 w-100 b-1" mat-button (click)="onAdd()" [mat-dialog-close]="" dkFocusInitial>Add</button>
+    <button class="mx-30 w-100 b-1" mat-button (click)="onCancel()">Cancel</button>
+</div>

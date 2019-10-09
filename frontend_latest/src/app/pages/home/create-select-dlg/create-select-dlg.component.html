@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Create Schedule</h1>
+<div mat-dialog-content>
+    <mat-form-field class="event-form">
+        <mat-label>Title: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="data.title">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Start Date: </mat-label>
+        <input matInput [matDatepicker]="myStartDatepicker" [(ngModel)]="data.startDate">
+        <mat-datepicker-toggle matSuffix [for]="myStartDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myStartDatepicker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div class="bb-1 mb-20">
+        <input placeholder="Start Time" aria-label="Start Time" [ngxTimepicker]="startTimer" [(ngModel)]="data.startTime" readonly >
+        <ngx-material-timepicker #startTimer [enableKeyboardInput]="true"></ngx-material-timepicker>
+    </div>
+
+    <mat-form-field>
+        <mat-label>End Date: </mat-label>
+        <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="data.endDate">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="bb-1 mb-20">
+        <input placeholder="End Time: " aria-label="End Time" [ngxTimepicker]="endTimer" [(ngModel)]="data.endTime" readonly>
+        <ngx-material-timepicker #endTimer [enableKeyboardInput]="true"></ngx-material-timepicker>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Student Name: </mat-label>
+        <select matNativeControl [(ngModel)]='createdStudentName'>
+            <option *ngFor="let student of students" [value]="student.firstname">
+                {{ student.firstname + " " + student.lastname }}
+            </option>
+        </select>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button class="mx-30 w-100 b-1" mat-button (click)="onSave()" [mat-dialog-close]="" dkFocusInitial>Save</button>
+    <button class="mx-30 w-100 b-1" mat-button (click)="onCancel()">Cancel</button>
+</div>
