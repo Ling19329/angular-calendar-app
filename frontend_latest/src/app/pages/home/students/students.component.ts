@@ -5,18 +5,6 @@ import { IStudent } from '../../../_interfaces/IStudent';
 import { BackendService } from '../../../_services/backend.service';
 import { AddStudentsDlgComponent } from '../add-students-dlg/add-students-dlg.component';
 import { UtilityService } from '../../../_services/utility.service';
-const ELEMENT_DATA: IPeriodicElement[] = [
-    { id: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { id: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { id: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { id: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { id: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { id: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { id: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 @Component({
     selector: 'app-students',
     templateUrl: './students.component.html',
@@ -24,14 +12,18 @@ const ELEMENT_DATA: IPeriodicElement[] = [
 })
 export class StudentsComponent implements OnInit {
 
-    displayedColumns: string[] = ['id', 'name', 'dob', 'email', 'role', 'in_active'];
+    displayedColumns: string[] = ['id', 'name', 'dob', 'email', 'role', 'in_active', 'action'];
     dataSource = new MatTableDataSource();
     constructor(private backendService : BackendService, private addStudentDlg: MatDialog, public utilityService: UtilityService) { }
     tempStudents: IStudent[] = [];
     ngOnInit() {
         this.backendService.getStudents().subscribe(students => {
-            this.dataSource = new MatTableDataSource(students);
-            this.tempStudents = students;
+            this.dataSource = new MatTableDataSource(students.map(item => {
+                return {...item, edited: false, role: item.role.toString(), is_active: item.is_active.toString()}
+            }));
+            this.tempStudents = students.map(item => {
+                return {...item, edited: false, role: item.role.toString(), is_active: item.is_active.toString()}
+            });
         });
 
         if(this.utilityService.subsVar == undefined){
@@ -56,6 +48,36 @@ export class StudentsComponent implements OnInit {
 
     addTableRow(data: IStudent){
         this.tempStudents.push(data);
+        this.dataSource = new MatTableDataSource(this.tempStudents);
+    }
+
+    handleEditRow(data: IStudent){
+        
+        this.tempStudents.map(item => {
+            if(item.id == data.id){
+                console.log('same id', item.id);
+                item['edited'] = true;
+            }
+        });
+        this.dataSource = new MatTableDataSource(this.tempStudents);
+    }
+
+    handleSaveRow(data: IStudent){
+        console.log('edit row: ', data);
+        
+        this.backendService.updateUserProfile({
+            id: data.id,
+            role: parseInt(data.role, 10),
+            is_active: parseInt(data.is_active, 10)
+        }).subscribe((user) => {
+            this.tempStudents.map(item => {
+                if(item.id == user.id){
+                    item['edited'] = false;
+                    item.role = user.role.toString();
+                    item.is_active = user.is_active.toString();
+                }
+            });
+        });
         this.dataSource = new MatTableDataSource(this.tempStudents);
     }
 

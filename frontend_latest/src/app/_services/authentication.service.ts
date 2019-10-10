@@ -30,8 +30,9 @@ export class AuthenticationService {
         }));
     }
 
-    register(email: string, firstname:string, lastname:string,  password: string, password_confirmation: string) {
-        return this.http.post<any>(`${environment.apiUrl}/register`, {email, firstname, lastname, password, password_confirmation})
+    register(email: string, firstname:string, lastname:string, dob: string,  password: string, password_confirmation: string) {
+        dob = new Date(dob).toISOString().slice(0, 19).replace('T', ' ');
+        return this.http.post<any>(`${environment.apiUrl}/register`, {email, firstname, lastname, dob, password, password_confirmation})
             .pipe(map(res => {
                 console.log('res', res);
                 return res;

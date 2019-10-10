@@ -5,12 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-MatFormFieldModule,
-MatInputModule,
-MatCardModule,
-MatButtonModule
-} from '@angular/material';
+import { CustomMaterialModule } from '../../core/material.module';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from 'src/app/components/alert/alert.component';
 
@@ -26,10 +21,7 @@ import { AlertComponent } from 'src/app/components/alert/alert.component';
     ReactiveFormsModule,
     CommonModule,
     AuthRoutingModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
+    CustomMaterialModule,
     FlexLayoutModule
   ],
   exports: [AlertComponent]

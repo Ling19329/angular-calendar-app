@@ -51,6 +51,7 @@ export class AddStudentsDlgComponent implements OnInit {
             dob: new Date(this.birthdate),
             email: this. email,
             role: '',
+            is_active: '',
             created_at: new Date(),
             updated_at: new Date()
         };

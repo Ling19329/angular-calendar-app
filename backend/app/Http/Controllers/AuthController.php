@@ -22,6 +22,7 @@ class AuthController extends Controller
             'lastname' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
+            
         ]);
 
         try {
@@ -30,6 +31,7 @@ class AuthController extends Controller
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');
             $user->email = $request->input('email');
+            $user->dob = $request->input('dob');
             $user->role = 4;
             $plainPassword = $request->input('password');
             $user->is_active = false;

@@ -37,13 +37,15 @@ export class BackendService {
     }
 
     createStudent(data): Observable<any> {
-
         return this.httpClient.post<any>(this.base_url + '/student', JSON.stringify(data),
             this.httpOptions).pipe(retry(1), catchError(this.errorHandl)
             );
     }
 
-
+    updateUserProfile(data):Observable<any>{
+        return this.httpClient.put<any>(this.base_url + '/user/' + data.id, JSON.stringify(data),
+        this.httpOptions).pipe(retry(1), catchError(this.errorHandl))
+    }
 
     errorHandl(error) {
         let errorMessage = '';

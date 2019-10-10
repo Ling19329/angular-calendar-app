@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      dob:  ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     },
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.authService.register(this.f.email.value, this.f.firstName.value, this.f.lastName.value, this.f.password.value, this.f.confirmPassword.value)
+    this.authService.register(this.f.email.value, this.f.firstName.value, this.f.lastName.value, this.f.dob.value, this.f.password.value, this.f.confirmPassword.value)
         .pipe(first())
         .subscribe(
             data => {
