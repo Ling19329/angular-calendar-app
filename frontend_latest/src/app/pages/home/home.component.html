@@ -6,7 +6,7 @@
         <mat-nav-list>
             <a mat-list-item routerLink="/">Home</a>
             <a mat-list-item routerLink="/calendar">Calendar</a>
-            <a mat-list-item routerLink="/students">Students</a>
+            <a mat-list-item routerLink="/students" *ngIf="currentUser.user_role =='1'">Users</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

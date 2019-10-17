@@ -73,7 +73,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Under Review'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $user['id'], $user['role']);
     }
 
 

@@ -16,11 +16,11 @@ export class CreateSelectDlgComponent implements OnInit {
     students: IStudent[];
     schedule: ISchedule;
     constructor(public creatSelectDlgRef: MatDialogRef<CreateSelectDlgComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: ISchedule,
-                public backendService: BackendService,
-                public utilityService: UtilityService) {}
+        @Inject(MAT_DIALOG_DATA) public data: ISchedule,
+        public backendService: BackendService,
+        public utilityService: UtilityService) { }
 
-                ngOnInit() {
+    ngOnInit() {
         this.backendService.getStudents().subscribe(students => {
             this.students = students;
         });
@@ -35,7 +35,7 @@ export class CreateSelectDlgComponent implements OnInit {
         // Send data to Backend by Post Method...
         // data.title, data.startDate, data.startTime, data.endDate, data.endTime, createdStudentId
         // Send data to backend...
-        this.backendService.createSchedule({title: this.data.title, start: this.data.startDate, end: this.data.endDate}).subscribe(res => {
+        this.backendService.createSchedule({ title: this.data.title, start: this.data.startDate, end: this.data.endDate }).subscribe(res => {
             console.log('Schedule save successed');
         });
 
