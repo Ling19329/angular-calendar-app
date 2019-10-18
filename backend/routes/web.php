@@ -21,6 +21,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('login', 'AuthController@login');
 
     $router->get('user',  ['uses' => 'UserController@showAllUsers']);
+    $router->get('user/teachers',  ['uses' => 'UserController@showAllTeachers']);
+    $router->get('user/students',  ['uses' => 'UserController@showAllStudents']);
+
     $router->get('user/{id}', ['uses' => 'UserController@showOneUser']);
     $router->delete('user/{id}', ['uses' => 'UserController@delete']);
     $router->put('user/{id}', ['uses' => 'UserController@update']);
@@ -36,6 +39,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('event', ['uses' => 'EventController@create']);
     $router->delete('event/{id}', ['uses' => 'EventController@delete']);
     $router->put('event/{id}', ['uses' => 'EventController@update']);
+
+    //$router->get('calendar',  ['uses' => 'CalendarController@showAllCalendars']);
+    $router->post('calendar-all',  ['uses' => 'CalendarController@showAllCalendars']);
+    $router->post('calendar-one', ['uses' => 'CalendarController@showOneCalendar']);
+    $router->post('calendar', ['uses' => 'CalendarController@create']);
+    $router->delete('calendar/{id}', ['uses' => 'CalendarController@delete']);
+    $router->put('calendar/{id}', ['uses' => 'CalendarController@update']);
 });
 
 

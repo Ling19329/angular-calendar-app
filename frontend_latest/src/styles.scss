@@ -32,3 +32,47 @@ $student-schedule-calendar-theme: mat-light-theme($student-schedule-calendar-pri
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+table {
+    width: 100%;
+}
+.mt-10{
+    margin-top: 10px!important;
+}
+
+.mb-10{
+    margin-bottom: 10px;
+}
+
+.my-10{
+    margin: 10px 0px;
+}
+
+.mr-10{
+    margin-right: 10px!important;
+}
+
+.ml-10{
+    margin-left: 10px!important;
+}
+
+.mx-10{
+    margin: 0px 10px;
+}
+
+.px-10{
+    padding: 0px 10px;
+}
+.py-10{
+    padding: 10px 0px;
+}
+.p-10{
+    padding: 10px;
+}
+
+.d-r{
+    float: right;
+}
+.w-100{
+    width: 100px;
+}
+

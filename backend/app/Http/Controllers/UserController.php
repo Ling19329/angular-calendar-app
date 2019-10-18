@@ -19,6 +19,16 @@ class UserController extends Controller
         return response()->json(User::all());
     }
 
+    public function showAllStudents()
+    {
+        return response()->json(User::where('role', 3)->get());
+    }
+
+    public function showAllTeachers()
+    {
+        return response()->json(User::where('role', 2)->get());
+    }
+
     public function showOneUser($id)
     {
         return response()->json(User::find($id));

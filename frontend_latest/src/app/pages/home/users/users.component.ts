@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { IPeriodicElement } from '../../../_interfaces/IPeriodicElement';
 import { MatDialogConfig, MatDialog, MatTableDataSource } from '@angular/material';
-import { IStudent } from '../../../_interfaces/IStudent';
+import { IUser } from '../../../_interfaces/IUser';
 import { BackendService } from '../../../_services/backend.service';
 import { AddStudentsDlgComponent } from '../add-students-dlg/add-students-dlg.component';
 import { UtilityService } from '../../../_services/utility.service';
 @Component({
-    selector: 'app-students',
-    templateUrl: './students.component.html',
-    styleUrls: ['./students.component.scss']
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss']
 })
-export class StudentsComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
     displayedColumns: string[] = ['id', 'name', 'dob', 'email', 'role', 'in_active', 'action'];
     dataSource = new MatTableDataSource();
     constructor(private backendService : BackendService, private addStudentDlg: MatDialog, public utilityService: UtilityService) { }
-    tempStudents: IStudent[] = [];
+    tempUsers: IUser[] = [];
     ngOnInit() {
-        this.backendService.getStudents().subscribe(students => {
-            this.dataSource = new MatTableDataSource(students.map(item => {
+        this.backendService.getUsers().subscribe(users => {
+            this.dataSource = new MatTableDataSource(users.map(item => {
                 return {...item, edited: false, role: item.role.toString(), is_active: item.is_active.toString()}
             }));
-            this.tempStudents = students.map(item => {
+            this.tempUsers = users.map(item => {
                 return {...item, edited: false, role: item.role.toString(), is_active: item.is_active.toString()}
             });
         });
 
         if(this.utilityService.subsVar == undefined){
-            this.utilityService.subsVar = this.utilityService.invokesaveStudent.subscribe((createdStudentData: IStudent)=>{
+            this.utilityService.subsVar = this.utilityService.invokesaveStudent.subscribe((createdStudentData: IUser)=>{
                 this.addTableRow(createdStudentData);
             });
         }
@@ -46,23 +46,23 @@ export class StudentsComponent implements OnInit {
         });
     }
 
-    addTableRow(data: IStudent){
-        this.tempStudents.push(data);
-        this.dataSource = new MatTableDataSource(this.tempStudents);
+    addTableRow(data: IUser){
+        this.tempUsers.push(data);
+        this.dataSource = new MatTableDataSource(this.tempUsers);
     }
 
-    handleEditRow(data: IStudent){
+    handleEditRow(data: IUser){
         
-        this.tempStudents.map(item => {
+        this.tempUsers.map(item => {
             if(item.id == data.id){
                 console.log('same id', item.id);
                 item['edited'] = true;
             }
         });
-        this.dataSource = new MatTableDataSource(this.tempStudents);
+        this.dataSource = new MatTableDataSource(this.tempUsers);
     }
 
-    handleSaveRow(data: IStudent){
+    handleSaveRow(data: IUser){
         console.log('edit row: ', data);
         
         this.backendService.updateUserProfile({
@@ -70,7 +70,7 @@ export class StudentsComponent implements OnInit {
             role: parseInt(data.role, 10),
             is_active: parseInt(data.is_active, 10)
         }).subscribe((user) => {
-            this.tempStudents.map(item => {
+            this.tempUsers.map(item => {
                 if(item.id == user.id){
                     item['edited'] = false;
                     item.role = user.role.toString();
@@ -78,7 +78,7 @@ export class StudentsComponent implements OnInit {
                 }
             });
         });
-        this.dataSource = new MatTableDataSource(this.tempStudents);
+        this.dataSource = new MatTableDataSource(this.tempUsers);
     }
 
 }

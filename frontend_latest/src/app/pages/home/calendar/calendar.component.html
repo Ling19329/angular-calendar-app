@@ -1,3 +1,29 @@
+<div>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+
+        <mat-form-field class="form-line mt-10">
+            <mat-label>Calendar: </mat-label>
+            <mat-select [ngModel]="currentCalendar?.id" (ngModelChange)="setCurrentCalendar($event)">
+                <mat-option *ngFor="let calendar of calendars" [value]="calendar.id">
+                    {{ calendar.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-button class="mat-raised-button mat-primary my-10 ml-10 d-r " (click)="editCourse(course)"
+            *ngIf="currentUser.role == '1'">
+            Edit Calendar
+        </button>
+        <span fxFlex></span>
+        
+        <button mat-button class="mat-raised-button mat-accent my-10 d-r " (click)="onClickAddCalendar('Add', {})"
+            *ngIf="currentUser.role == '1'">
+            ADD Calendar
+        </button>
+    </div>
+    <span *ngIf="isEmptyCalendar && currentUser.role=='1'">You have not created Calendar yet.</span>
+    <span *ngIf="isEmptyCalendar && currentUser.role=='2'">You have not been assigned to any Calendar.</span>
+</div>
+
 <full-calendar selectable=true (select)="handleSelect($event)" [events]="calendarEvents"
     [defaultView]="calendarDefaultView" [plugins]="calendarPlugins" [height]="800">
 </full-calendar>
