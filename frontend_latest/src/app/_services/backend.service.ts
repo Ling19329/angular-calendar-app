@@ -34,15 +34,59 @@ export class BackendService {
     }
 
     getCalendar(id:number, user_id: number): Observable<ICalendar[]> {
-        return this.httpClient.post<ICalendar[]>(this.base_url + '/calendar', 
+        return this.httpClient.post<ICalendar[]>(this.base_url + '/calendar-one', 
         {
             id: id,
             user_id: user_id
         });
     }
 
-    getSchedules(): Observable<ISchedule[]> {
-        return this.httpClient.get<ISchedule[]>(this.base_url + '/event');
+    createCalendar(title:string, description:string, teachers:number[]): Observable<any> {
+        console.log('backend service createcalendar is called');
+        return this.httpClient.post<any>(this.base_url + '/calendar', {
+            title: title,
+            description: description,
+            teachers: teachers
+        });
+    }
+
+    updateCalendar(id:number, title:string, description:string, teachers:number[]): Observable<any> {
+        console.log('backend service createcalendar is called');
+        return this.httpClient.put<any>(this.base_url + '/calendar/' + id , {
+            title: title,
+            description: description,
+            teachers: teachers
+        });
+    }
+
+    getSchedules(calendar_id: number): Observable<ISchedule[]> {
+        return this.httpClient.post<ISchedule[]>(this.base_url + '/event/all', {
+            calendar_id: calendar_id
+        });
+    }
+
+    createSchedule(title: string, start: Date, end: Date, student: number, calendar_id: number): Observable<any> {
+        return this.httpClient.post<any>(this.base_url + '/event/create', {
+            title: title,
+            start: start,
+            end: end,
+            user_id: student,
+            calendar_id: calendar_id
+        });
+    }
+
+    updateSchedule(id:number, title: string, start: Date, end: Date, student: number, calendar_id: number): Observable<any> {
+        return this.httpClient.put<any>(this.base_url + '/event/' + id, {
+            title: title,
+            start: start,
+            end: end,
+            user_id: student,
+            calendar_id: calendar_id
+        });
+    }
+
+    deleteSchedule(id:number): Observable<any> {
+        return this.httpClient.delete<any>(this.base_url + '/event/' + id);
     }
 
     getUsers(): Observable<IUser[]>{
@@ -57,11 +101,7 @@ export class BackendService {
         return this.httpClient.get<IUser[]>(this.base_url + '/user/teachers');
     }
 
-    createSchedule(data): Observable<any> {
-        return this.httpClient.post<any>(this.base_url + '/event', JSON.stringify(data),
-            this.httpOptions).pipe(retry(1), catchError(this.errorHandl)
-            );
-    }
+    
 
     createStudent(data): Observable<any> {
         return this.httpClient.post<any>(this.base_url + '/student', JSON.stringify(data),

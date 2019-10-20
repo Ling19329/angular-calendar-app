@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { BackendService } from '../../../_services/backend.service';
-import { IStudent } from '../../../_interfaces/IStudent';
-import { UtilityService } from '../../../_services/utility.service';
+import { BackendService } from '../../../../_services/backend.service';
+import { IStudent } from '../../../../_interfaces/IStudent';
+import { UtilityService } from '../../../../_services/utility.service';
 
 @Component({
     selector: 'app-add-students-dlg',

@@ -3,7 +3,7 @@ import { IPeriodicElement } from '../../../_interfaces/IPeriodicElement';
 import { MatDialogConfig, MatDialog, MatTableDataSource } from '@angular/material';
 import { IUser } from '../../../_interfaces/IUser';
 import { BackendService } from '../../../_services/backend.service';
-import { AddStudentsDlgComponent } from '../add-students-dlg/add-students-dlg.component';
+import { AddStudentsDlgComponent } from './add-students-dlg/add-students-dlg.component';
 import { UtilityService } from '../../../_services/utility.service';
 @Component({
     selector: 'app-users',

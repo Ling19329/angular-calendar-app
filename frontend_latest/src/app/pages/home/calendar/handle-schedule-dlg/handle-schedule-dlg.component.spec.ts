@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateCalendarDlgComponent } from './create-calendar-dlg.component';
+import { CreateSelectDlgComponent } from './handle-schedule-dlg.component';
 
-describe('CreateCalendarDlgComponent', () => {
-  let component: CreateCalendarDlgComponent;
-  let fixture: ComponentFixture<CreateCalendarDlgComponent>;
+describe('CreateSelectDlgComponent', () => {
+  let component: CreateSelectDlgComponent;
+  let fixture: ComponentFixture<CreateSelectDlgComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateCalendarDlgComponent ]
+      declarations: [ CreateSelectDlgComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateCalendarDlgComponent);
+    fixture = TestBed.createComponent(CreateSelectDlgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

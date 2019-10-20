@@ -1,0 +1,11 @@
+<h1 mat-dialog-title *ngIf="action != 'Error'; else elseTemplate"><strong>Success</strong></h1>
+<ng-template #elseTemplate>
+        <h1 mat-dialog-title><strong>Error</strong></h1>
+    </ng-template>
+<div mat-dialog-content>
+    {{local_data.message}}    
+</div>
+<div mat-dialog-actions class="mt-10">
+    <span fxFlex></span>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="primary">Ok</button>
+</div>

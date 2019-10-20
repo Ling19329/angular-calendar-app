@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Calendar;
+use App\UserCalendar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -57,19 +58,42 @@ class CalendarController extends Controller
 
     public function create(Request $request)
     {
+        
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
+            'teachers' => 'nullable'
         ]);
-        $Calendar = Calendar::create($request->all());
+        $req_calendar = $request->only(['title', 'description']);
+        $Calendar = Calendar::create($req_calendar);
+
+        foreach($request['teachers'] as $teacher){
+            $user_calendar['calendar_id'] = $Calendar['id'];
+            $user_calendar['user_id'] = $teacher;
+            $UserCalendar = UserCalendar::create($user_calendar);
+        }
+
         return response()->json($Calendar, 201);
     }
 
     public function update($id, Request $request)
     {
         $Calendar = Calendar::findOrFail($id);
-        $Calendar->update($request->all());
 
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'teachers' => 'nullable'
+        ]);
+        $req_calendar = $request->only(['title', 'description']);
+        $Calendar->update($req_calendar);
+        //remove all users for specific calendar
+        UserCalendar::where('calendar_id', $id)->delete();
+        foreach($request['teachers'] as $teacher){
+                $user_calendar['calendar_id'] = $id;
+                $user_calendar['user_id'] = $teacher;
+                $UserCalendar = UserCalendar::create($user_calendar);
+            }
         return response()->json($Calendar, 200);
     }
 

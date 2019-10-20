@@ -34,11 +34,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('student/{id}', ['uses' => 'StudentController@delete']);
     $router->put('student/{id}', ['uses' => 'StudentController@update']);
 
-    $router->get('event',  ['uses' => 'EventController@showAllEvents']);
+    //$router->get('event',  ['uses' => 'EventController@showAllEvents']);
+    $router->post('event/all',  ['uses' => 'EventController@showAllEvents']);
     $router->get('event/{id}', ['uses' => 'EventController@showOneEvent']);
-    $router->post('event', ['uses' => 'EventController@create']);
+    $router->post('event/create', ['uses' => 'EventController@create']);
     $router->delete('event/{id}', ['uses' => 'EventController@delete']);
     $router->put('event/{id}', ['uses' => 'EventController@update']);
+
+    
 
     //$router->get('calendar',  ['uses' => 'CalendarController@showAllCalendars']);
     $router->post('calendar-all',  ['uses' => 'CalendarController@showAllCalendars']);

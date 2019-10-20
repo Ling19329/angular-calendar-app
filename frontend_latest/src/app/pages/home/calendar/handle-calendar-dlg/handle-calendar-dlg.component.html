@@ -10,22 +10,22 @@
         </mat-form-field>
 
 
-        <button mat-flat-button color="primary" (click)="isExpandedTeacherList=true"
-            *ngIf="!isExpandedTeacherList ; else teacherListTemplate">Assign
-            Teachers</button>
+        <button mat-flat-button color="accent" (click)="isExpandedTeacherList = !isExpandedTeacherList"
+            > {{!isExpandedTeacherList?"Assign Teachers":"Hide List of Teachers"}}</button>
 
-        <ng-template #teacherListTemplate>
-            <mat-selection-list #selectedTeachers>
-                <mat-list-option *ngFor="let teacher of teachers">
+        <div *ngIf="isExpandedTeacherList">
+            <mat-selection-list #teachersId (selectionChange)="onSelection($event, teachersId.selectedOptions.selected)">
+                <mat-list-option *ngFor="let teacher of teachers" [value] = 'teacher'>
                     {{teacher.firstname}}
                 </mat-list-option>
             </mat-selection-list>
             <p>
-                <span *ngFor="let selectedTeacher of selectedTeachers.selectedOptions.selected">
-                    {{selectedTeacher.firstname}}
+                <span *ngFor="let selectedTeacher of selectedTeachers">
+                    {{ selectedTeacher.firstname }}
                 </span>
             </p>
-        </ng-template>
+        </div>
+        
     </div>
 
     <ng-template #elseTemplate>
@@ -34,6 +34,6 @@
 </div>
 <div mat-dialog-actions class="mt-10">
     <span fxFlex></span>
-    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="doAction()" mat-flat-button color="primary">{{ action !== 'Edit'?action:'Save' }}</button>
     <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
 </div>

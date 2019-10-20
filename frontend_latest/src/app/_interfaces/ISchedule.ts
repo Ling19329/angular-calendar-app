@@ -1,3 +1,5 @@
+import { IUser } from './IUser';
+
 export interface ISchedule{
     id: number,
     title: string,
@@ -5,5 +7,6 @@ export interface ISchedule{
     startTime: Date,
     endDate : Date,
     endTime: Date,
-    student: string
+    student: number,
+    studentDetail?: IUser
 }

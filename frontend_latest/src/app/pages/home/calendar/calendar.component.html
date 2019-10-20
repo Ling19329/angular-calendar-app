@@ -4,12 +4,13 @@
         <mat-form-field class="form-line mt-10">
             <mat-label>Calendar: </mat-label>
             <mat-select [ngModel]="currentCalendar?.id" (ngModelChange)="setCurrentCalendar($event)">
+                <mat-option [value]="0">All Calendars</mat-option>
                 <mat-option *ngFor="let calendar of calendars" [value]="calendar.id">
                     {{ calendar.title }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-button class="mat-raised-button mat-primary my-10 ml-10 d-r " (click)="editCourse(course)"
+        <button mat-button class="mat-raised-button mat-primary my-10 ml-10 d-r " (click)="onClickEditCalendar('Edit')"
             *ngIf="currentUser.role == '1'">
             Edit Calendar
         </button>
@@ -24,6 +25,11 @@
     <span *ngIf="isEmptyCalendar && currentUser.role=='2'">You have not been assigned to any Calendar.</span>
 </div>
 
-<full-calendar selectable=true (select)="handleSelect($event)" [events]="calendarEvents"
-    [defaultView]="calendarDefaultView" [plugins]="calendarPlugins" [height]="800">
+<full-calendar selectable=true 
+(eventClick)="handleEditEvent($event)"
+(select)="handleAddEvent($event)" 
+[events]="calendarEvents"
+[defaultView]="calendarDefaultView" 
+[plugins]="calendarPlugins" 
+[height]="800">
 </full-calendar>

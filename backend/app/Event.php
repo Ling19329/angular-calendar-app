@@ -13,7 +13,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'start', 'end', 'updated_at', 'created_at'
+        'title','calendar_id', 'user_id' , 'start', 'end', 'updated_at', 'created_at'
     ];
 
     /**
@@ -22,4 +22,8 @@ class Event extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

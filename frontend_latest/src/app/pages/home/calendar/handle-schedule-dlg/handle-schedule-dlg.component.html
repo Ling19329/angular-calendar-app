@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Create Schedule</h1>
+<div mat-dialog-content>
+    <mat-form-field class="event-form">
+        <mat-label>Title: </mat-label>
+        <input class="mb-10" type="text" matInput [(ngModel)]="local_data.title">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Start Date: </mat-label>
+        <input matInput [matDatepicker]="myStartDatepicker" [(ngModel)]="local_data.startDate">
+        <mat-datepicker-toggle matSuffix [for]="myStartDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myStartDatepicker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div class="bb-1 mb-20">
+        <input placeholder="Start Time" aria-label="Start Time" [ngxTimepicker]="startTimer" [(ngModel)]="local_data.startTime" readonly >
+        <ngx-material-timepicker #startTimer [enableKeyboardInput]="true"></ngx-material-timepicker>
+    </div>
+
+    <mat-form-field>
+        <mat-label>End Date: </mat-label>
+        <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="local_data.endDate">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="bb-1 mb-20">
+        <input placeholder="End Time: " aria-label="End Time" [ngxTimepicker]="endTimer" [(ngModel)]="local_data.endTime" readonly>
+        <ngx-material-timepicker #endTimer [enableKeyboardInput]="true"></ngx-material-timepicker>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Student Name: </mat-label>
+        <select matNativeControl [(ngModel)]='createdStudentId'>
+            <option *ngFor="let student of students" [value]="student.id">
+                {{ student.firstname + " " + student.lastname }}
+            </option>
+        </select>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions >
+    <span fxFlex></span>
+    <button class="mx-10 b-1" mat-flat-button color="primary" (click)="doAction()" [mat-dialog-close]="" dkFocusInitial>{{ action !== 'Edit'?action:'Save' }}</button>
+    <button class="b-1" mat-flat-button color="warn" (click)="onDelete()" [mat-dialog-close]="" dkFocusInitial *ngIf="action=='Edit'">Delete</button>
+    <button class="mx-10 b-1" mat-flat-button color="accent" (click)="onCancel()">Cancel</button>
+</div>

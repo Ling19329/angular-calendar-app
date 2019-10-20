@@ -54,6 +54,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function calendars()
     {
-        return $this->belongsToMany('App\Calendar', 'user_calendars')->withTimestamps();;
+        return $this->belongsToMany('App\Calendar', 'users_calendars')->withTimestamps();;
+    }
+
+    public function events(){
+        return $this->belongsTo('App\Event');
     }
 }

@@ -25,6 +25,6 @@ class Calendar extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_calendars')->withTimestamps();;
+        return $this->belongsToMany('App\User', 'users_calendars')->withTimestamps();;
     }
 }
