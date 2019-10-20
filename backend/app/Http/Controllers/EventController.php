@@ -70,7 +70,8 @@ class EventController extends Controller
     public function update($id, Request $request)
     {
         $Event = Event::findOrFail($id);
-        $Event->update($request->all());    
+        $Event->update($request->all());
+        $Event->user;    
         return response()->json($Event, 200);
     }
 

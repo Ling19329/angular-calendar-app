@@ -25,8 +25,10 @@ export class HandleCalendarDlgComponent implements OnInit{
         @Optional() @Inject(MAT_DIALOG_DATA) public data: ICalendar,
         public backendService: BackendService
         ) {
-        console.log(data);
+        console.log('data on calendar dialog', data);
         this.local_data = { ...data };
+        this.selectedTeachers = this.local_data.users.map(item => item.id);
+        console.log('selected teachers', this.selectedTeachers);
         this.action = this.local_data.action;
     }
 

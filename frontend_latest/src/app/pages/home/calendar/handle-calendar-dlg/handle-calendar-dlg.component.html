@@ -14,16 +14,11 @@
             > {{!isExpandedTeacherList?"Assign Teachers":"Hide List of Teachers"}}</button>
 
         <div *ngIf="isExpandedTeacherList">
-            <mat-selection-list #teachersId (selectionChange)="onSelection($event, teachersId.selectedOptions.selected)">
-                <mat-list-option *ngFor="let teacher of teachers" [value] = 'teacher'>
+            <mat-selection-list #teachersId [(ngModel)]="selectedTeachers" (selectionChange)="onSelection($event, teachersId.selectedOptions.selected)">
+                <mat-list-option *ngFor="let teacher of teachers" [value] = 'teacher.id'>
                     {{teacher.firstname}}
                 </mat-list-option>
             </mat-selection-list>
-            <p>
-                <span *ngFor="let selectedTeacher of selectedTeachers">
-                    {{ selectedTeacher.firstname }}
-                </span>
-            </p>
         </div>
         
     </div>

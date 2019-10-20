@@ -28,35 +28,18 @@ export class HandleScheduleDlgComponent implements OnInit {
         this.backendService.getStudents().subscribe(students => {
             this.students = students;
         });
+        if (this.data.student)
+        this.createdStudentId = this.data.student;
+        console.log('data on the dialog', this.data);
     }
 
     onCancel() {
         this.dialogRef.close({event: 'Cancel'});
     }
 
-    // onSave() {
-    //     // Send data to Backend by Post Method...
-    //     // data.title, data.startDate, data.startTime, data.endDate, data.endTime, createdStudentId
-    //     // Send data to backend...
-    //     this.backendService.createSchedule({ title: this.data.title, start: this.data.startDate, end: this.data.endDate }).subscribe(res => {
-    //         console.log('Schedule save successed');
-    //     });
-
-    //     // Showing saved Event on Calendar.
-    //     this.schedule = {
-    //         id: 0,
-    //         title: this.data.title,
-    //         startDate: this.data.startDate,
-    //         endDate: this.data.endDate,
-    //         startTime: new Date(),
-    //         endTime: new Date(),
-    //         student: this.createdStudentName
-    //     };
-    //     this.utilityService.onSaveScheduleComponentBtnClick(this.schedule);
-    // }
-
     doAction() {
-        this.local_data.student = this.createdStudentId;
+        if (this.createdStudentId)
+            this.local_data.student = this.createdStudentId;
         this.dialogRef.close({ event: this.action, data: this.local_data });
     }
 

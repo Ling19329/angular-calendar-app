@@ -41,9 +41,21 @@ class CalendarController extends Controller
 
         $user = User::find($request['user_id']);
         if($user['role'] == 1)
-            return response()->json(Calendar::all());
+            {
+                $Calendar = Calendar::all();
+                foreach($Calendar as $calendar_item){
+                    $calendar_item->users;
+                }
+                return response()->json($Calendar);
+            }
         else
-            return response()->json($user->calendars);
+            {
+                $Calendar = $user->calendars;
+                foreach($Calendar as $calendar_item){
+                    $calendar_item->users;
+                }
+                return response()->json($Calendar);
+            }
     }
 
     public function showOneCalendar(Request $request)
@@ -52,8 +64,24 @@ class CalendarController extends Controller
             'id' => 'required',
             'user_id' => 'required',
         ]);
-        $user = User::find($request['user_id']);
-        return response()->json($user->calendars->where('id', $request['id']));
+        if($request['id'] == 1){
+            $Calendar = Calendar::all();
+            foreach($Calendar as $calendar_item){
+                $calendar_item->users;
+            }
+            return response()->json($Calendar);
+        }
+        else
+        {
+            $user = User::find($request['user_id']);
+            var_dump($user->calendars);
+            $Calendar = $user->calendars->find($request['id']);
+            var_dump($Calendar);
+            $Calendar->users;
+            return response()->json($Calendar);
+        }
+        
+
     }
 
     public function create(Request $request)
@@ -72,7 +100,7 @@ class CalendarController extends Controller
             $user_calendar['user_id'] = $teacher;
             $UserCalendar = UserCalendar::create($user_calendar);
         }
-
+        $Calendar->users;
         return response()->json($Calendar, 201);
     }
 
@@ -94,6 +122,7 @@ class CalendarController extends Controller
                 $user_calendar['user_id'] = $teacher;
                 $UserCalendar = UserCalendar::create($user_calendar);
             }
+        $Calendar->users;
         return response()->json($Calendar, 200);
     }
 
