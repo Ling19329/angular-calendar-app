@@ -27,6 +27,7 @@ export class HandleCalendarDlgComponent implements OnInit{
         ) {
         console.log('data on calendar dialog', data);
         this.local_data = { ...data };
+
         this.selectedTeachers = this.local_data.users.map(item => item.id);
         console.log('selected teachers', this.selectedTeachers);
         this.action = this.local_data.action;

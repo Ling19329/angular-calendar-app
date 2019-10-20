@@ -38,6 +38,10 @@ export class HandleScheduleDlgComponent implements OnInit {
     }
 
     doAction() {
+        this.local_data.startDate = new Date(this.local_data.startDate).toISOString().slice(0,10);
+        this.local_data.endDate = new Date(this.local_data.endDate).toISOString().slice(0,10);
+        console.log('local_data', this.local_data);
+
         if (this.createdStudentId)
             this.local_data.student = this.createdStudentId;
         this.dialogRef.close({ event: this.action, data: this.local_data });

@@ -101,6 +101,7 @@ export class CalendarComponent implements OnInit {
             const selectDialogRef = this.dialog.open(HandleScheduleDlgComponent, {
                 width: '350px',
                 height: '550px',
+                disableClose: true,
                 data: {
                     action: 'Add',
                     startDate: arg.startStr,
@@ -146,6 +147,7 @@ export class CalendarComponent implements OnInit {
         const selectDialogRef = this.dialog.open(HandleScheduleDlgComponent, {
             width: '350px',
             height: '550px',
+            disableClose: true,
             data: {
                 action: 'Edit',
                 id: temp_event.id,
@@ -192,7 +194,6 @@ export class CalendarComponent implements OnInit {
                         this.calendarEvents = this.calendarEvents.filter(item => item.id != result.data.id);
                     console.log('calendar after delete', this.calendarEvents);
                 });
-
             }
         });
 

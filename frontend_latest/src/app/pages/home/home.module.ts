@@ -13,7 +13,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HandleCalendarDlgComponent } from './calendar/handle-calendar-dlg/handle-calendar-dlg.component';
 import { AlertDlgComponent } from 'src/app/components/alert-dlg/alert-dlg.component';
-
+import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
+import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -33,6 +35,10 @@ import { AlertDlgComponent } from 'src/app/components/alert-dlg/alert-dlg.compon
     NgxMaterialTimepickerModule,
     FlexLayoutModule,
   ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+],
   entryComponents: [HandleScheduleDlgComponent, AddStudentsDlgComponent, HandleCalendarDlgComponent, AlertDlgComponent],
 })
 export class HomeModule { }
